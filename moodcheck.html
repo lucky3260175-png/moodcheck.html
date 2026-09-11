@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MoodCheck</title>
+
+<style>
+
+/* =====================================
+   GENERAL
+===================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    background: #031273;
+
+    color: #031273;
+}
+
+
+/* =====================================
+   START PAGE
+===================================== */
+
+#start-page {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+}
+
+.test-button {
+
+    background-color: #031273;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 50px;
+
+    padding: 25px 80px;
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.test-button:hover {
+
+    background-color: #03045E;
+}
+
+
+/* =====================================
+   HEADER
+===================================== */
+
+header {
+
+    height: 90px;
+
+    padding: 0 7%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background: #fffdf9;
+
+    border-bottom:
+        1px solid #e7ded4;
+}
+
+.logo {
+
+    font-size: 30px;
+
+    font-weight: bold;
+}
+
+.logo span {
+
+    color: #330006;
+}
+
+.header-title {
+
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+
+/* =====================================
+   MAIN
+===================================== */
+
+#checker {
+
+    min-height:
+        calc(100vh - 90px);
+
+    padding:
+        35px 20px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+}
+
+
+/* =====================================
+   CARD
+===================================== */
+
+.checker-box {
+
+    width: 100%;
+
+    max-width: 700px;
+
+    background: white;
+
+    border-radius: 40px;
+
+    border:
+        1px solid #031273;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.08);
+}
+
+
+/* =====================================
+   PROGRESS
+===================================== */
+
+.progress-area {
+
+    padding:
+        30px 40px 0;
+}
+
+.progress-text {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    color: #031273;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    margin-bottom: 12px;
+}
+
+.progress {
+
+    width: 100%;
+
+    height: 10px;
+
+    background: #eee7df;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.progress-bar {
+
+    height: 100%;
+
+    width: 33.33%;
+
+    background: #03045E;
+
+    border-radius: 20px;
+
+    transition:
+        width .3s ease;
+}
+
+
+/* =====================================
+   QUESTION AREA
+===================================== */
+
+.question-area {
+
+    padding:
+        45px 40px;
+}
+
+.question-area h1 {
+
+    margin:
+        0 0 18px;
+
+    font-size: 40px;
+
+    line-height: 1.15;
+}
+
+.question-description {
+
+    margin-bottom: 35px;
+
+    color: #D21404;
+
+    font-size: 19px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================
+   OPTIONS
+===================================== */
+
+.options {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr;
+
+    gap: 14px;
+}
+
+.option {
+
+    width: 100%;
+
+    padding: 20px 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    background: white;
+
+    border:
+        2px solid #031273;
+
+    border-radius: 20px;
+
+    text-align: left;
+
+    font-size: 18px;
+
+    color: #031273;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.option:hover {
+
+    border-color:
+        #031273;
+
+    background:
+        #031273;
+
+    color: white;
+}
+
+.option.selected {
+
+    background:
+        #E5F0FA;
+
+    border-color:
+        #031273;
+
+    color: #031273;
+}
+
+.option-emoji {
+
+    min-width: 38px;
+
+    font-size: 32px;
+}
+
+
+/* =====================================
+   QUESTION BUTTONS
+===================================== */
+
+.question-buttons {
+
+    margin-top: 35px;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+}
+
+.back-button,
+.next-button {
+
+    padding:
+        14px 25px;
+
+    border-radius:
+        25px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.back-button {
+
+    background: white;
+
+    border:
+        1px solid #031273;
+}
+
+.next-button {
+
+    background:
+        #031273;
+
+    border: none;
+
+    color: white;
+}
+
+.next-button:disabled {
+
+    opacity: .4;
+
+    cursor:
+        not-allowed;
+}
+
+
+/* =====================================
+   RESULT
+===================================== */
+
+.result {
+
+    text-align: center;
+}
+
+.result-emoji {
+
+    font-size: 80px;
+
+    margin-bottom: 15px;
+}
+
+.result h1 {
+
+    font-size: 34px;
+
+    margin:
+        10px 0 15px;
+}
+
+.result-intro {
+
+    color: #031273;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================
+   SUGGESTION
+===================================== */
+
+.suggestion {
+
+    margin-top: 30px;
+
+    padding: 25px;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    text-align: left;
+}
+
+.suggestion h3 {
+
+    margin-top: 0;
+
+    font-size: 20px;
+}
+
+.suggestion p {
+
+    color: #031273;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================
+   SUMMARY
+===================================== */
+
+.summary {
+
+    margin-top: 20px;
+
+    padding: 20px;
+
+    border:
+        1px solid #031273;
+
+    border-radius: 18px;
+
+    text-align: left;
+}
+
+.summary-title {
+
+    font-weight: bold;
+
+    margin-bottom: 12px;
+}
+
+.summary p {
+
+    margin: 8px 0;
+
+    color: #031273;
+}
+
+
+/* =====================================
+   RESTART
+===================================== */
+
+.restart-button {
+
+    margin-top: 25px;
+
+    padding:
+        14px 28px;
+
+    background:
+        #031273;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 25px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* =====================================
+   FOOTER
+===================================== */
+
+footer {
+
+    padding: 25px;
+
+    text-align: center;
+
+    color: #ffffff;
+
+    font-size: 13px;
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media(max-width: 600px) {
+
+    header {
+
+        height: 75px;
+
+        padding:
+            0 25px;
+    }
+
+    .logo {
+
+        font-size: 23px;
+    }
+
+    .header-title {
+
+        font-size: 16px;
+    }
+
+    #checker {
+
+        padding:
+            15px 10px;
+    }
+
+    .checker-box {
+
+        border-radius:
+            30px;
+    }
+
+    .progress-area {
+
+        padding:
+            25px 25px 0;
+    }
+
+    .question-area {
+
+        padding:
+            30px 25px;
+    }
+
+    .question-area h1 {
+
+        font-size: 32px;
+    }
+
+    .question-description {
+
+        font-size: 17px;
+    }
+
+    .option {
+
+        padding: 18px;
+    }
+
+    .result h1 {
+
+        font-size: 28px;
+    }
+
+    .test-button {
+
+        padding:
+            20px 40px;
+
+        font-size: 24px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     START PAGE
+===================================== -->
+
+<section id="start-page">
+
+    <button
+        class="test-button"
+        onclick="startCheck()">
+
+        What are you feeling today? 🖊️
+
+    </button>
+
+</section>
+
+
+
+<!-- =====================================
+     MOODCHECK PAGE
+===================================== -->
+
+<div id="moodcheck-page" style="display: none;">
+
+
+<!-- =====================================
+     HEADER
+===================================== -->
+
+<header>
+
+    <div class="logo">
+
+        Mood<span>Check</span>🖊️
+
+    </div>
+
+    <div class="header-title">
+
+        Take the check
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================
+     CHECKER
+===================================== -->
+
+<section id="checker">
+
+    <div class="checker-box">
+
+
+        <!-- PROGRESS -->
+
+        <div class="progress-area">
+
+            <div class="progress-text">
+
+                <span id="questionNumber">
+                    Question 1 of 3
+                </span>
+
+                <span id="percentage">
+                    33%
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    id="progressBar">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUESTIONS -->
+
+        <div
+            class="question-area"
+            id="questionArea">
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    MoodCheck is a self-reflection tool.
+    It is not a medical diagnosis.
+
+</footer>
+
+</div>
+
+
+
+<script>
+
+/* =====================================
+   START WEBSITE
+===================================== */
+
+function startCheck() {
+
+    document.getElementById(
+        "start-page"
+    ).style.display = "none";
+
+    document.getElementById(
+        "moodcheck-page"
+    ).style.display = "block";
+
+    showQuestion();
+}
+
+
+
+/* =====================================
+   QUESTIONS
+===================================== */
+
+const questions = [
+
+    {
+        title:
+        "How are you feeling today?",
+
+        description:
+        "Choose the mood that best describes how you feel right now.",
+
+        type:
+        "mood",
+
+        options: [
+
+            ["😊", "Happy"],
+            ["🙂", "Good"],
+            ["😐", "Okay / Neutral"],
+            ["😟", "Worried"],
+            ["😰", "Stressed"],
+            ["😔", "Sad"],
+            ["😡", "Angry"],
+            ["😴", "Tired"]
+
+        ]
+
+    },
+
+
+    {
+        title:
+        "What is the main reason for how you are feeling today?",
+
+        description:
+        "There is no right or wrong answer.",
+
+        type:
+        "reason",
+
+        options: [
+
+            ["", "School / academic work"],
+            ["", "Family"],
+            ["", "Friends / social relationships"],
+            ["", "Lack of sleep"],
+            ["", "Personal concerns"],
+            ["", "Nothing specific"],
+            ["", "Other"]
+
+        ]
+
+    },
+
+
+    {
+        title:
+        "What would you like to do right now?",
+
+        description:
+        "Choose what feels most helpful for you at this moment.",
+
+        type:
+        "activity",
+
+        options: [
+
+            ["", "Take a short break"],
+            ["", "Relax"],
+            ["", "Talk to someone"],
+            ["", "Organize my thoughts"],
+            ["", "Continue studying"],
+            ["", "I just want to check my mood"]
+
+        ]
+
+    }
+
+];
+
+
+
+/* =====================================
+   WELLNESS SUGGESTIONS
+===================================== */
+
+const suggestions = {
+
+    "Happy": {
+
+        emoji: "😊",
+
+        title:
+        "Your current mood: Happy",
+
+        text:
+        "Take a moment to appreciate what made you feel good today and continue doing things that support your well-being."
+
+    },
+
+
+    "Good": {
+
+        emoji: "🙂",
+
+        title:
+        "Your current mood: Good",
+
+        text:
+        "Notice the things that are going well today. Small positive moments can be worth appreciating and carrying forward."
+
+    },
+
+
+    "Okay / Neutral": {
+
+        emoji: "😐",
+
+        title:
+        "Your current mood: Okay / Neutral",
+
+        text:
+        "It is okay to feel neutral. Give yourself some time to check what you need right now, such as rest, food, water, or a quiet moment."
+
+    },
+
+
+    "Worried": {
+
+        emoji: "😟",
+
+        title:
+        "Your current mood: Worried",
+
+        text:
+        "Try writing down what is making you worried. If you feel comfortable, consider talking to someone you trust."
+
+    },
+
+
+    "Stressed": {
+
+        emoji: "😰",
+
+        title:
+        "Your current mood: Stressed",
+
+        text:
+        "Try taking a short break. Take a few slow breaths, drink some water, and give yourself a few minutes before continuing your task."
+
+    },
+
+
+    "Sad": {
+
+        emoji: "😔",
+
+        title:
+        "Your current mood: Sad",
+
+        text:
+        "Be gentle with yourself and give yourself permission to pause. If you feel comfortable, consider talking to someone you trust."
+
+    },
+
+
+    "Angry": {
+
+        emoji: "😡",
+
+        title:
+        "Your current mood: Angry",
+
+        text:
+        "Give yourself some space before reacting. Try taking a few slow breaths and identifying what may have caused the frustration."
+
+    },
+
+
+    "Tired": {
+
+        emoji: "😴",
+
+        title:
+        "Your current mood: Tired",
+
+        text:
+        "Consider taking a short rest and checking whether you are getting enough sleep."
+
+    }
+
+};
+
+
+
+/* =====================================
+   VARIABLES
+===================================== */
+
+let currentQuestion = 0;
+
+let answers = {};
+
+
+
+/* =====================================
+   SHOW QUESTION
+===================================== */
+
+function showQuestion() {
+
+    const question =
+        questions[currentQuestion];
+
+    const total =
+        questions.length;
+
+
+    const percent =
+        Math.round(
+            ((currentQuestion + 1) /
+            total) * 100
+        );
+
+
+    /* PROGRESS */
+
+    document.getElementById(
+        "questionNumber"
+    ).innerText =
+
+        "Question " +
+        (currentQuestion + 1) +
+        " of " +
+        total;
+
+
+    document.getElementById(
+        "percentage"
+    ).innerText =
+
+        percent + "%";
+
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+
+        percent + "%";
+
+
+    /* QUESTION */
+
+    let html = "";
+
+
+    html +=
+
+        "<h1>" +
+        question.title +
+        "</h1>";
+
+
+    html +=
+
+        "<p class='question-description'>" +
+
+        question.description +
+
+        "</p>";
+
+
+    /* OPTIONS */
+
+    html +=
+
+        "<div class='options'>";
+
+
+    for (
+        let i = 0;
+        i < question.options.length;
+        i++
+    ) {
+
+        const emoji =
+            question.options[i][0];
+
+        const text =
+            question.options[i][1];
+
+
+        html +=
+
+            "<button " +
+
+            "class='option' " +
+
+            "onclick=\"selectOption('" +
+
+            text.replace(
+                /'/g,
+                "\\'"
+            ) +
+
+            "', this)\">" +
+
+
+            (
+                emoji
+
+                ?
+
+                "<span class='option-emoji'>" +
+
+                emoji +
+
+                "</span>"
+
+                :
+
+                ""
+            ) +
+
+
+            "<span>" +
+
+            text +
+
+            "</span>" +
+
+
+            "</button>";
+
+    }
+
+
+    html += "</div>";
+
+
+    /* BUTTONS */
+
+    html +=
+
+        "<div class='question-buttons'>";
+
+
+    html +=
+
+        "<button " +
+
+        "class='back-button' " +
+
+        "onclick='previousQuestion()' " +
+
+        (
+
+            currentQuestion === 0
+
+            ?
+
+            "disabled"
+
+            :
+
+            ""
+
+        ) +
+
+        ">← Back</button>";
+
+
+    html +=
+
+        "<button " +
+
+        "class='next-button' " +
+
+        "id='nextButton' " +
+
+        "onclick='nextQuestion()' " +
+
+        "disabled>" +
+
+        (
+
+            currentQuestion ===
+            total - 1
+
+            ?
+
+            "See my mood →"
+
+            :
+
+            "Continue →"
+
+        ) +
+
+        "</button>";
+
+
+    html += "</div>";
+
+
+    document.getElementById(
+        "questionArea"
+    ).innerHTML = html;
+
+}
+
+
+
+/* =====================================
+   SELECT OPTION
+===================================== */
+
+function selectOption(
+    value,
+    button
+) {
+
+    const question =
+        questions[currentQuestion];
+
+
+    /* SAVE ANSWER */
+
+    answers[question.type] =
+        value;
+
+
+    /* REMOVE PREVIOUS SELECTION */
+
+    const buttons =
+        document.querySelectorAll(
+            ".option"
+        );
+
+
+    buttons.forEach(
+        function(btn) {
+
+            btn.classList.remove(
+                "selected"
+            );
+
+        }
+    );
+
+
+    /* SELECT BUTTON */
+
+    button.classList.add(
+        "selected"
+    );
+
+
+    /* ENABLE NEXT */
+
+    document.getElementById(
+        "nextButton"
+    ).disabled = false;
+
+}
+
+
+
+/* =====================================
+   NEXT QUESTION
+===================================== */
+
+function nextQuestion() {
+
+    const question =
+        questions[currentQuestion];
+
+
+    /* MAKE SURE THERE IS AN ANSWER */
+
+    if (
+        !answers[question.type]
+    ) {
+
+        return;
+
+    }
+
+
+    /* NEXT QUESTION */
+
+    if (
+        currentQuestion <
+        questions.length - 1
+    ) {
+
+        currentQuestion++;
+
+        showQuestion();
+
+    }
+
+
+    /* RESULT */
+
+    else {
+
+        showResult();
+
+    }
+
+}
+
+
+
+/* =====================================
+   BACK BUTTON
+===================================== */
+
+function previousQuestion() {
+
+    if (
+        currentQuestion > 0
+    ) {
+
+        currentQuestion--;
+
+        showQuestion();
+
+    }
+
+}
+
+
+
+/* =====================================
+   RESULT
+===================================== */
+
+function showResult() {
+
+    const mood =
+        answers["mood"] ||
+        "Okay / Neutral";
+
+
+    const data =
+        suggestions[mood];
+
+
+    /* PROGRESS */
+
+    document.getElementById(
+        "questionNumber"
+    ).innerText =
+        "Your MoodCheck";
+
+
+    document.getElementById(
+        "percentage"
+    ).innerText =
+        "100%";
+
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        "100%";
+
+
+    /* RESULT */
+
+    let html = "";
+
+
+    html +=
+
+        "<div class='result'>";
+
+
+    html +=
+
+        "<div class='result-emoji'>" +
+
+        data.emoji +
+
+        "</div>";
+
+
+    html +=
+
+        "<h1>" +
+
+        data.title +
+
+        "</h1>";
+
+
+    html +=
+
+        "<p class='result-intro'>" +
+
+        "Thank you for taking a moment " +
+        "to check in with yourself today." +
+
+        "</p>";
+
+
+    /* SUGGESTION */
+
+    html +=
+
+        "<div class='suggestion'>" +
+
+        "<h3>🌿 A gentle suggestion</h3>" +
+
+        "<p>" +
+
+        data.text +
+
+        "</p>" +
+
+        "</div>";
+
+
+    /* ANSWER SUMMARY */
+
+    html +=
+
+        "<div class='summary'>";
+
+
+    html +=
+
+        "<div class='summary-title'>" +
+
+        "Your check-in" +
+
+        "</div>";
+
+
+    html +=
+
+        "<p><b>Mood:</b> " +
+
+        answers["mood"] +
+
+        "</p>";
+
+
+    html +=
+
+        "<p><b>Main reason:</b> " +
+
+        answers["reason"] +
+
+        "</p>";
+
+
+    html +=
+
+        "<p><b>What you would like to do:</b> " +
+
+        answers["activity"] +
+
+        "</p>";
+
+
+    html +=
+
+        "</div>";
+
+
+    /* RESTART */
+
+    html +=
+
+        "<button " +
+
+        "class='restart-button' " +
+
+        "onclick='restartCheck()'>" +
+
+        "Check again" +
+
+        "</button>";
+
+
+    html +=
+
+        "</div>";
+
+
+    document.getElementById(
+        "questionArea"
+    ).innerHTML = html;
+
+}
+
+
+
+/* =====================================
+   RESTART
+===================================== */
+
+function restartCheck() {
+
+    currentQuestion = 0;
+
+    answers = {};
+
+    showQuestion();
+
+}
+
+</script>
+
+</body>
+
+</html>
